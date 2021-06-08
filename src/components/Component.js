@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 const Component = () => {
   const [count, setCount] = useState(0);
+  const componentRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      componentRef.current = false;
+    }
+  });
 
   const fakeFetch = () => {
     setTimeout(() => {
-      setCount(count + 1);
+      if (componentRef.current)  setCount(count + 1);
     }, 2000);
   }
 
